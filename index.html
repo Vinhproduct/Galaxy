@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(45deg, #fff5e6, #ffe6f0, #ffd1dc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+            animation: gradientAnimation 10s ease infinite;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .ticker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .ticker-item {
+            position: absolute;
+            font-size: 24px;
+            color: #ff69b4;
+            animation: moveTicker 10s linear infinite, fadeInOut 2s ease-in-out infinite;
+        }
+        .ticker-item::before {
+            content: "❤️ ";
+        }
+        @keyframes moveTicker {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .flower {
+            position: absolute;
+            font-size: 30px;
+            color: #ff69b4;
+            animation: fall 8s linear infinite;
+        }
+        .flower::before {
+            content: "🌸";
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) scale(0.5); opacity: 1; }
+            50% { transform: translateY(50vh) scale(1); opacity: 0.8; }
+            100% { transform: translateY(100vh) scale(1.2); opacity: 0; }
+        }
+        .side-ticker.left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .side-ticker.right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .side-sticker {
+            font-size: 30px;
+            color: #ff69b4;
+            animation: sideMove 6s ease-in-out infinite, bounce 1.2s ease-in-out infinite, scale 2s ease-in-out infinite;
+        }
+        .side-sticker.left::before {
+            content: "🐾";
+        }
+        .side-sticker.right::before {
+            content: "🌸";
+        }
+        @keyframes sideMove {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(10px, -10px); }
+            50% { transform: translate(0, 0); }
+            75% { transform: translate(-10px, -10px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        #login {
+            text-align: center;
+            color: #333;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            background: linear-gradient(135deg, rgba(255, 245, 230, 0.9), rgba(255, 230, 240, 0.9));
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            border: 2px solid transparent;
+            animation: glow 2s ease-in-out infinite;
+            font-family: 'Dancing Script', cursive;
+        }
+        @keyframes glow {
+            0% { border-color: rgba(255, 105, 180, 0.3); box-shadow: 0 0 5px rgba(255, 105, 180, 0.3); }
+            50% { border-color: rgba(255, 105, 180, 0.7); box-shadow: 0 0 15px rgba(255, 105, 180, 0.7); }
+            100% { border-color: rgba(255, 105, 180, 0.3); box-shadow: 0 0 5px rgba(255, 105, 180, 0.3); }
+        }
+        #login h2 {
+            margin: 0 0 15px;
+            font-size: 28px;
+            text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.5);
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.8);
+            font-family: 'Dancing Script', cursive;
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+            transform: scale(1.05);
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff69b4, #ff00cc);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-family: 'Dancing Script', cursive;
+        }
+        button:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+            background: linear-gradient(45deg, #ff00cc, #ff69b4);
+        }
+        #letter {
+            display: none;
+            padding: 30px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            max-width: 500px;
+            animation: fadeIn 1s ease-in-out forwards;
+            font-family: 'Dancing Script', cursive;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #letter h2 {
+            font-size: 26px;
+            color: #ff69b4;
+        }
+        #letter p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticker">
+        <div class="ticker-item" style="top: 10%; animation-delay: 0s;">Chào mừng bạn!</div>
+        <div class="ticker-item" style="top: 30%; animation-delay: 2s;">Hãy nhập tên nhé!</div>
+        <div class="ticker-item" style="top: 50%; animation-delay: 4s;">Vũ trụ đang chờ!</div>
+        <div class="ticker-item" style="top: 70%; animation-delay: 6s;">Cute lắm luôn!</div>
+    </div>
+    <div class="flower" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="flower" style="left: 30%; animation-delay: 1s;"></div>
+    <div class="flower" style="left: 50%; animation-delay: 2s;"></div>
+    <div class="flower" style="left: 70%; animation-delay: 3s;"></div>
+    <div class="flower" style="left: 90%; animation-delay: 4s;"></div>
+    <div class="side-ticker left">
+        <div class="side-sticker left" style="animation-delay: 0s;"></div>
+        <div class="side-sticker left" style="animation-delay: 2s;"></div>
+        <div class="side-sticker left" style="animation-delay: 4s;"></div>
+    </div>
+    <div class="side-ticker right">
+        <div class="side-sticker right" style="animation-delay: 1s;"></div>
+        <div class="side-sticker right" style="animation-delay: 3s;"></div>
+        <div class="side-sticker right" style="animation-delay: 5s;"></div>
+    </div>
+    <div id="login">
+        <h2>Nhập tên của bạn</h2>
+        <input type="text" id="userName" placeholder="Bạn tên gì nào...">
+        <button onclick="submitLogin()">Đăng nhập</button>
+    </div>
+    <div id="letter">
+        <h2 id="greeting"></h2>
+        <p>Chào mừng bạn đến với thế giới dễ thương này! ✨<br>
+        Hôm nay sẽ là một ngày thật rực rỡ, tươi sáng và tràn ngập yêu thương 🌸<br><br>
+        Hãy luôn mỉm cười và tỏa sáng như bạn vẫn luôn làm nhé! 💖</p>
+        <p><i>Thương mến,<br>Vũ trụ cute 💌</i></p>
+        <button onclick="showVisualization()">Khám phá vũ trụ</button>
+    </div>
+    <script>
+        function submitLogin() {
+            let name = document.getElementById("userName").value.trim();
+            if (name) {
+                localStorage.setItem("userName", name);
+                console.log("Đăng nhập thành công với tên:", name);
+                document.getElementById("login").style.display = "none";
+                document.getElementById("letter").style.display = "block";
+                document.getElementById("greeting").innerText = `Gửi ${name} thân mến,`;
+            } else {
+                alert("Vui lòng nhập tên!");
+            }
+        }
+
+        function showVisualization() {
+            window.location.href = "LoveRoom/galaxy.html";
+        }
+    </script>
+</body>
+</html>
